@@ -1,4 +1,4 @@
-package com.gianlu.finance.application;
+package com.gianlu.finance.gianlu;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
