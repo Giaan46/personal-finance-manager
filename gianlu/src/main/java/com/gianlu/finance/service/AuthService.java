@@ -1,0 +1,45 @@
+package com.gianlu.finance.service;
+
+
+
+import java.time.LocalDateTime;
+
+
+
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import com.gianlu.finance.dto.request.ResgisterRequest;
+import com.gianlu.finance.repository.UserRepository;
+
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class AuthService {
+	
+	private final UserRepository userRepository;
+	private final PasswordEncoder passwordEncoder;
+	
+	//validate if email exist
+	public void register(ResgisterRequest request) {
+		if(userRepository.existsByEmail(request.getEmail())) {
+			
+		}
+		// create user 
+		User user = User.builder()
+				.email(request.getEmail())
+				.username(request.getUsername())
+				.password(passwordEncoder.encode(request.getPassword()))
+				.role(Role.USER)
+				.createdAt(LocalDateTime.now())
+				.build();
+		
+		// save in data base
+		userRepository.save(user);
+		
+	}
+	
+
+}
