@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gianlu.finance.dto.request.LoginRequest;
+import com.gianlu.finance.dto.request.ResgisterRequest;
 import com.gianlu.finance.dto.response.AuthResponse;
 import com.gianlu.finance.service.AuthService;
 
@@ -20,7 +21,7 @@ public class AuthController {
 	private final AuthService authService;
 	
 	@PostMapping("/register")
-	public void register(@RequestBody @Valid RegisterRequest request) {
+	public void register(@RequestBody @Valid ResgisterRequest request) {
 		authService.register(request);
 		
 	}
