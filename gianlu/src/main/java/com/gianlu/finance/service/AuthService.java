@@ -10,7 +10,9 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.gianlu.finance.dto.request.LoginRequest;
 import com.gianlu.finance.dto.request.ResgisterRequest;
+import com.gianlu.finance.dto.response.AuthResponse;
 import com.gianlu.finance.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -40,6 +42,19 @@ public class AuthService {
 		userRepository.save(user);
 		
 	}
-	
+	public AuthResponse login(LoginRequest request) {
+		
+		// search user by email
+		User user = userRespoitory.findByEmail(request.getEmail())
+				.orElseThrow(() -> new RuntimeException("User not found"));
+		// validate password
+		if(!passwordEncoder.matches(request.getPasswoerd(), user.getPassword())) {
+			throw new RuntimeException("Invalid credentials");
+			
+		}
+		// responce simple (later go to JWT
+		return new AuthResponse("Login successful");
+		
+	}
 
 }
